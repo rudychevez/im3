@@ -1,0 +1,93 @@
+YczX683gqTUL0Qa8942u0Sr2m7gbq64r
+F2e(L)vt9Jp)
+
+
+CREATE DATABASE IF NOT EXISTS `im_main` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE `im_main`;
+
+CREATE TABLE IF NOT EXISTS `user` (
+  `id_user` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `created_at` date NOT NULL,
+  `update_at` TIMESTAMP NOT NULL,
+  `user` varchar(16) NOT NULL,
+  `password` varchar(16) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `last_name` varchar(30) NOT NULL,
+  `unread_messages` tinyint(4) NOT NULL,
+  `address` varchar(70) NOT NULL,
+  `city` varchar(40) NOT NULL,
+  `state` char(2) NOT NULL,
+  `zip_code` char(5) NOT NULL,
+  `social_security` char(11) NOT NULL,
+  `birth_date` date NOT NULL,
+  `salary` float(4,2) NOT NULL,
+  `card_number` varchar(16) NOT NULL,
+  `lang` enum('en','es') NOT NULL DEFAULT 'en',
+  `user_type` enum('admin','user') NOT NULL,
+  `status` enum('ON','OFF') NOT NULL,
+  `id_branch` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id_user`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+CREATE TABLE IF NOT EXISTS `branch` (
+  `id_branch` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `branch` varchar(30) NOT NULL,
+  `logo` varchar(25) NOT NULL,
+  `phone` char(11) NOT NULL,
+  `address` varchar(50) NOT NULL,
+  `city` varchar(30) NOT NULL,
+  `zip_code` char(5) NOT NULL,
+  `state` char(2) NOT NULL DEFAULT 'TX',
+  `sms_credit` float(6,2) NOT NULL,
+  `client_filter` enum('Y','N') NOT NULL DEFAULT 'N',
+  `status` enum('ON','OFF') NOT NULL DEFAULT 'ON',
+  PRIMARY KEY (`id_branch`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `client` (
+  `id_client` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `date_created` date NOT NULL,
+  `name` varchar(35) NOT NULL,
+  `last_name` varchar(35) NOT NULL,
+  `telephone` char(10) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `zip_code` char(5) NOT NULL,
+  `city` varchar(30) NOT NULL,
+  `state` char(2) NOT NULL,
+  PRIMARY KEY (`id_client`),
+  FULLTEXT KEY `name` (`name`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+
+
+CREATE TABLE IF NOT EXISTS `driver_license` (
+  `id_driver_license` smallint(6) NOT NULL AUTO_INCREMENT,
+  `file_name` char(17) COLLATE utf8_unicode_ci NOT NULL,
+  `id_client` int(11) NOT NULL,
+  PRIMARY KEY (`id_driver_license`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+
+
+
+CREATE DATABASE IF NOT EXISTS `im_security` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE `im_security`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `serial`
+--
+
+CREATE TABLE IF NOT EXISTS `serial` (
+  `id_serial` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `serial` char(13) NOT NULL,
+  `date_created` datetime NOT NULL,
+  `user_creater` tinyint(3) unsigned NOT NULL,
+  `IP_creater` varchar(15) NOT NULL,
+  `id_branch` tinyint(3) unsigned NOT NULL,
+  `date_used` datetime NOT NULL,
+  `user_used` tinyint(3) unsigned NOT NULL,
+  `IP_used` varchar(15) NOT NULL,
+  PRIMARY KEY (`id_serial`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
